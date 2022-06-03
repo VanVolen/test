@@ -8,8 +8,8 @@ app.get('/',function(req,res) {
   res.sendFile('index.html');
 });
 
-$(body).on(function(){
-$(this).addClass("svetaklasa");
+jQuery(body).on(function(){
+  jQuery(this).addClass("svetaklasa");
 })
 
 
