@@ -8,4 +8,9 @@ app.get('/',function(req,res) {
   res.sendFile('index.html');
 });
 
+$(body).on(function(){
+$(this).addClass("svetaklasa");
+})
+
+
 app.listen(process.env.PORT || 5000);
