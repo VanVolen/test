@@ -23,8 +23,8 @@ io.on('connection', (socket) => {
   console.log('a user connected');
 });
 
-server.listen(3000, () => {
-  console.log('listening on *:3000');
+server.listen((process.env.PORT || 5000), () => {
+  console.log('listening on *:5000');
 });
 
 io.on('connection', (socket) => {
