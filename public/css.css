@@ -36,7 +36,7 @@ body {
     margin: 0.25rem;
     border-radius: 3px;
     outline: none;
-    color: rgb(27, 6, 6);
+    color: #fff;
 }
 
 #messages {
