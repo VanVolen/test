@@ -1,22 +1,29 @@
+var i;
 window.onload = () => {
     class MainScene extends Phaser.Scene {
         preload() {
             this.load.image('player', 'images/' + 'char.png');
+            this.load.image('bush', 'images/' + 'bush.png');
+
         }
 
         create() {
-            this.player = this.physics.add.sprite(100, game.config.height / 2, 'player');
+            this.player = this.physics.add.sprite(100, 300, 'player');
             this.cursors = this.input.keyboard.createCursorKeys();
+            for (i=0;i<100;i++){
+                var p = i-50;
+                var value = Phaser.Math.Between(p*100,(1+p)*100);
+                this.add.image(value,605,"bush").setOrigin(1);
+            }
         }
 
         update() {
+            this.cameras.main.startFollow(this.player);
             const moveAmt = 200;
             this.player.setDrag(500);
 
-            if (this.cursors.right.isDown) this.player.setVelocityX(moveAmt);
-            if (this.cursors.left.isDown) this.player.setVelocityX(-moveAmt);
-            if (this.cursors.down.isDown) this.player.setVelocityY(moveAmt);
-            if (this.cursors.up.isDown) this.player.setVelocityY(-moveAmt);
+            if (this.cursors.right.isDown) this.player.setVelocityX(moveAmt).flipX=false;
+            if (this.cursors.left.isDown) this.player.setVelocityX(-moveAmt).flipX=true;
         }
     }
 
