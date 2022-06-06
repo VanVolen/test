@@ -6,6 +6,7 @@ var wkey;
 var dkey;
 var player;
 var shiftkey;
+var platforms;
 window.onload = () => {
     /*ORBBBBBBBBBBBBBBBBB*/
     class Orb extends Phaser.GameObjects.Sprite {
@@ -25,6 +26,13 @@ window.onload = () => {
                 "orb"
             );
             this.scene.physics.velocityFromRotation(angle, 1000, orb.body.velocity);
+
+            this.scene.physics.add.overlap(orb, platforms, function () {
+                setTimeout(function () {
+                    orb.destroy();
+                }, 5);
+              });
+              
             setTimeout(function () {
                 orb.destroy();
             }, 500);
@@ -90,6 +98,8 @@ window.onload = () => {
             this.load.image("bush", "images/" + "bush.png");
             this.load.image("ground", "images/" + "ground.png");
             this.load.image("orb", "images/" + "orb.png");
+            this.load.image("background", "images/" + "background.jpg");
+
 
         }
         // ISPALI METAK
@@ -101,12 +111,11 @@ window.onload = () => {
             akey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
             dkey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
             shiftkey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
-
             // -----------------------
             this.createPlayer(this);
             this.createPlatform();
             this.cursors = this.input.keyboard.createCursorKeys();
-            this.physics.add.collider(player, this.platforms);
+            this.physics.add.collider(player, platforms);
             // ADD BUSH
             for (i = 0; i < 100; i++) {
                 var p = i - 50;
@@ -121,11 +130,11 @@ window.onload = () => {
             player = new Player(scene, 100, 300, "player");
         }
         createPlatform() {
-            this.platforms = this.physics.add.staticGroup();
-            this.platforms.create(400, 600, "ground").setScale(40, 1).refreshBody();
-            this.platforms.create(600, 400, "ground");
-            this.platforms.create(50, 250, "ground");
-            this.platforms.create(800, 220, "ground");
+            platforms = this.physics.add.staticGroup();
+            platforms.create(400, 600, "ground").setScale(40, 1).refreshBody();
+            platforms.create(600, 400, "ground");
+            platforms.create(50, 250, "ground");
+            platforms.create(800, 220, "ground");
         }
         update() {
             this.cameras.main.startFollow(player);
