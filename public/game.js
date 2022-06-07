@@ -7,37 +7,10 @@ var dkey;
 var player;
 var shiftkey;
 var platforms;
+var orbexplode;
+var explode;
 window.onload = () => {
-    /*ORBBBBBBBBBBBBBBBBB*/
-    class Orb extends Phaser.GameObjects.Sprite {
-        // constructor(scene) {
-        //   console.log(scene.player);
-        //   var x = scene.player.x;
-        //   var y = scene.player.y;
-        //   super(scene, x, y, "orb");
-        //   }
-        constructor(scene, x, y) {
-            super(scene, x, y, "orb");
-        }
-        action(angle, player) {
-            var orb = this.scene.physics.add.image(
-                player.x + 20,
-                player.y - 50,
-                "orb"
-            );
-            this.scene.physics.velocityFromRotation(angle, 1000, orb.body.velocity);
-
-            this.scene.physics.add.overlap(orb, platforms, function () {
-                setTimeout(function () {
-                    orb.destroy();
-                }, 5);
-              });
-              
-            setTimeout(function () {
-                orb.destroy();
-            }, 500);
-        }
-    }
+    // ----------------------------------------------------------------------------------------------------------
 
     class Player extends Phaser.Physics.Arcade.Sprite {
         constructor(scene, x, y, sprite) {
@@ -47,6 +20,7 @@ window.onload = () => {
             this.setDrag(100);
             this.setScale(0.5);
             this.skok = 0;
+
 
             // TODO: prosiriti na vise tipova weapona
             this.orb = new Orb(scene, x, y);
@@ -91,7 +65,36 @@ window.onload = () => {
             }
         }
     }
-    /*MAIN SCENA*/
+    // ----------------------------------------------------------------------------------------------------------
+    class Orb extends Phaser.GameObjects.Sprite {
+        constructor(scene, x, y) {
+            super(scene, x, y, "orb");
+        }
+        
+        action(angle, player) {
+            var orb = this.scene.physics.add.image(
+                player.x + 20,
+                player.y - 50,
+                "orb"
+            );
+            this.scene.physics.velocityFromRotation(angle, 1000, orb.body.velocity);
+            this.scene.physics.add.overlap(orb, platforms, function () {
+                setTimeout(function () {
+                    this.orbexplosion(orb.x, orb.y);
+                    orb.destroy();
+                }, 5);
+            });
+
+            setTimeout(function () {
+                orb.destroy();
+            }, 500);
+
+
+        }
+
+    }
+    // ----------------------------------------------------------------------------------------------------------
+
     class MainScene extends Phaser.Scene {
         preload() {
             this.load.image("player", "images/" + "char.png");
@@ -99,13 +102,24 @@ window.onload = () => {
             this.load.image("ground", "images/" + "ground.png");
             this.load.image("orb", "images/" + "orb.png");
             this.load.image("background", "images/" + "background.jpg");
-
-
+            this.load.spritesheet("explodeorb", "images/" + "explodeorb.png", { frameWidth: 30, frameHeight: 30 });
         }
-        // ISPALI METAK
-
+        orbexplosion(x, y) {
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            orbexplode = this.scene.add.sprite(x, y, "explodeorb");
+            orbexplode.frame = 0;
+            orbexplode.play({ key: 'explode', repeat: 0 });
+            setTimeout(function () {
+                orbexplode.destroy();
+            }, 500);
+        }
         create() {
-            // DODAVANJE KEYBOARD MSM KEYS STAGOD
+            const mummyAnimation = this.anims.create({
+                key: 'explode',
+                frames: this.anims.generateFrameNumbers('explodeorb'),
+                frameRate: 24
+            });
+            
             spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
             wkey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
             akey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
