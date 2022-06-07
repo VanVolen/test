@@ -1,5 +1,4 @@
 var i;
-var g = 200;
 var spacebar;
 var akey;
 var wkey;
@@ -56,11 +55,9 @@ window.onload = () => {
                 if (this.skok == 1) {
                     player.setVelocityY(-500);
                     this.skok = 0;
-                    console.log("skok 2");
                 } else if (this.skok == 0) {
                     this.skok = 1;
                     player.setVelocityY(-500);
-                    console.log("skok 1");
                 }
             }
         }
@@ -105,7 +102,6 @@ window.onload = () => {
             this.load.spritesheet("explodeorb", "images/" + "explodeorb.png", { frameWidth: 30, frameHeight: 30 });
         }
         orbexplosion(x, y) {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             orbexplode = this.scene.add.sprite(x, y, "explodeorb");
             orbexplode.frame = 0;
             orbexplode.play({ key: 'explode', repeat: 0 });
@@ -152,15 +148,6 @@ window.onload = () => {
         }
         update() {
             this.cameras.main.startFollow(player);
-            g++;
-            if (g == 400) {
-                console.log(this.cameras.main);
-                console.log("Camera X:" + this.cameras.main.midPoint.x);
-                console.log("Player X:" + player.x);
-                console.log("Camera Y:" + this.cameras.main.midPoint.y);
-                console.log("Player Y:" + player.y);
-                g = 0;
-            }
             player.update();
         }
     }
