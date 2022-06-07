@@ -16,7 +16,7 @@ window.onload = () => {
             super(scene, x, y, sprite);
             scene.physics.add.existing(this);
             this.scene.add.existing(this);
-            this.setDrag(100);
+            this.setDrag(150);
             this.setScale(0.5);
             this.skok = 0;
 
@@ -67,7 +67,7 @@ window.onload = () => {
         constructor(scene, x, y) {
             super(scene, x, y, "orb");
         }
-        
+
         action(angle, player) {
             var orb = this.scene.physics.add.image(
                 player.x + 20,
@@ -75,18 +75,30 @@ window.onload = () => {
                 "orb"
             );
             this.scene.physics.velocityFromRotation(angle, 1000, orb.body.velocity);
+            var passvariabla = this;
             this.scene.physics.add.overlap(orb, platforms, function () {
                 setTimeout(function () {
-                    this.orbexplosion(orb.x, orb.y);
+                    console.log("Dodirne plocu");
+                    passvariabla.orbexplosion(orb.x, orb.y);
                     orb.destroy();
                 }, 5);
             });
 
             setTimeout(function () {
+                passvariabla.orbexplosion(orb.x, orb.y);
                 orb.destroy();
             }, 500);
 
 
+        }
+        orbexplosion(x, y) {
+            orbexplode = this.scene.add.sprite(x, y, "explodeorb");
+            orbexplode.frame = 0;
+            orbexplode.play({ key: 'explode', repeat: 0 });
+            orbexplode.once('animationcomplete', () => {
+                console.log("RADILI");
+                orbexplode.destroy();
+            })
         }
 
     }
@@ -101,21 +113,14 @@ window.onload = () => {
             this.load.image("background", "images/" + "background.jpg");
             this.load.spritesheet("explodeorb", "images/" + "explodeorb.png", { frameWidth: 30, frameHeight: 30 });
         }
-        orbexplosion(x, y) {
-            orbexplode = this.scene.add.sprite(x, y, "explodeorb");
-            orbexplode.frame = 0;
-            orbexplode.play({ key: 'explode', repeat: 0 });
-            setTimeout(function () {
-                orbexplode.destroy();
-            }, 500);
-        }
+
         create() {
             const mummyAnimation = this.anims.create({
                 key: 'explode',
                 frames: this.anims.generateFrameNumbers('explodeorb'),
-                frameRate: 24
+                frameRate: 12
             });
-            
+
             spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
             wkey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
             akey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
