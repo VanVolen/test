@@ -5,17 +5,17 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
-io.on('connection', (socket) => {console.log('a user connected');});
-server.listen(3000, () => {/*console.log('listening on *:3000');*/});
+io.on('connection', (socket) => { console.log('a user connected'); });
+server.listen(3000, () => {/*console.log('listening on *:3000');*/ });
 
 // - - - - - - - - - - STATIC FILES
 app.use(express.static("public"));
-app.use("/css",express.static(__dirname+"public/css"))
-app.use("/js",express.static(__dirname+"public/js"))
-app.use("/images",express.static(__dirname+"public/images"))
-app.use("/lib",express.static(__dirname+"public/lib"))
+app.use("/css", express.static(__dirname + "public/css"))
+app.use("/js", express.static(__dirname + "public/js"))
+app.use("/images", express.static(__dirname + "public/images"))
+app.use("/lib", express.static(__dirname + "public/lib"))
 
-app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
+app.get('/', (req, res) => { res.sendFile(__dirname + '/views/index.html'); });
 
 // - - - - -  - -  CHAT
 
@@ -27,8 +27,12 @@ app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 
 
 io.on('connection', (socket) => {
+  console.log('a user connected');
   socket.on('chat message', (msg) => {
     io.emit('chat message', msg);
+  });
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
   });
 });
 
