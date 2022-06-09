@@ -1,11 +1,10 @@
 {
   "name": "heroku",
   "version": "1.0.0",
-  "description": "",
+  "description": "AAAAAAAAAAAAAAA",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +14,16 @@
     "jquery": "^3.6.0",
     "phaser": "^3.55.2",
     "socket.io": "^4.5.1"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VanVolen/test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/VanVolen/test/issues"
+  },
+  "homepage": "https://github.com/VanVolen/test#readme"
 }

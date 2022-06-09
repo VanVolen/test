@@ -18,7 +18,7 @@ canvas {
     border: 2px solid gray;
     box-shadow: 2px 2px 4px #0000007a;
 }
-#form {
+.chatform {
     background: rgba(0, 0, 0, 0.15);
     padding: 0.25rem;
     position: fixed;
@@ -31,7 +31,7 @@ canvas {
     backdrop-filter: blur(10px);
 }
 
-#input {
+.chatinput {
     border: none;
     padding: 0 1rem;
     flex-grow: 1;
@@ -39,11 +39,11 @@ canvas {
     margin: 0.25rem;
 }
 
-#input:focus {
+.chatinput:focus {
     outline: none;
 }
 
-#form>button {
+.chatform button {
     background: #333;
     border: none;
     padding: 0 1rem;
@@ -59,10 +59,10 @@ canvas {
     padding: 0;
 }
 
-#messages>li {
+.chatmessages li {
     padding: 0.5rem 1rem;
 }
 
-#messages>li:nth-child(odd) {
+.chatmessages li:nth-child(odd) {
     background: #efefef;
 }
