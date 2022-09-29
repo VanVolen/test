@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AAAAAAAAAAAAAAA",
   "main": "index.js",
-  "type": "module",
+  "type": ".cjs",
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon index.js"
