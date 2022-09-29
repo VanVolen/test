@@ -43,27 +43,4 @@ socket.on("connect_error", (err) => {
 });
 io.on("connection", (socket) => {
         console.log('New user connected: ', socket.id);
-        // players[socket.id] = {
-        //         playerId: socket.id
-        // };
-        // console.log(players);
-        // // send the players object to the new player
-        // socket.emit("currentPlayers", players);
-        // socket.emit("giveid", socket.id);
-
-
-        // // update all other players of the new player
-        // socket.broadcast.emit("newPlayer", players[socket.id]);
-        // // console.log(players);
-        // socket.on("chat message", (msg) => {
-        //         io.emit("chat message", msg);
-        // });
-        // socket.on("disconnect", function () {
-        //         console.log("User disconnected: ", socket.id);
-        //         // remove this player from our players object
-        //         delete players[socket.id];
-        //         // emit a message to all players to remove this player
-        //         io.emit("playerDisconnect", socket.id);
-        // });
-
 });
