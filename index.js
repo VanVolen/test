@@ -3,10 +3,13 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
+const path = require('path')
+app.use('/static', express.static(path.join(__dirname, '/public')));
+
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
-app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', (socket) => {
   socket.on('chat message', msg => {
