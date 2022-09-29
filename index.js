@@ -1,4 +1,4 @@
-import { Server } from 'socket.io';
+/*import { Server } from 'socket.io';
 import express from 'express';
 import { createServer } from 'http';
 
@@ -43,4 +43,4 @@ socket.on("connect_error", (err) => {
 });
 io.on("connection", (socket) => {
         console.log('New user connected: ', socket.id);
-});
+});*/
