@@ -1,11 +1,12 @@
-const app = require('express')();
+var express = require('express');
+var path = require('path');
+var app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
 
-const path = require('path')
-app.use('/static', express.static(path.join(__dirname, 'public')));
 
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
