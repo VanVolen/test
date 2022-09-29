@@ -1,46 +1,18 @@
-/*import { Server } from 'socket.io';
-import express from 'express';
-import { createServer } from 'http';
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const port = process.env.PORT || 3000;
 
-const app = express();
-const server = createServer(app);
-const io = new Server(server);
-
-var players = {};
-
-
-var myid;
-server.listen(process.env.PORT || 3000, () => {
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
-// - - - - - - - - - - STATIC FILES
-// app.use(express.static("public"));
-import path from 'path';
-const __dirname = path.resolve();
-app.use(express.static('public'))
-
-app.use(express.static(path.join(__dirname + "/images")));
-app.use(express.static(path.join(__dirname + "/css")));
-app.use(express.static(path.join(__dirname + "/lib")));
-
-// app.use('/source', express.static(__dirname + '/source'))
-
-
-app.use(express.static("source"));
-app.use(express.static(path.join(__dirname + "/source")));
-
-app.get("/", (req, res) => {
-        res.sendFile(__dirname + "/index.html");
+io.on('connection', (socket) => {
+  socket.on('chat message', msg => {
+    io.emit('chat message', msg);
+  });
 });
 
-// - - - - -  - -  CHAT
-if (io.connected) {
-        console.log("guda");
-}
- import "socket.io-client.js" as {socket};
-socket.on("connect_error", (err) => {
-  console.log(`connect_error due to ${err.message}`);
+http.listen(port, () => {
+  console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
-io.on("connection", (socket) => {
-        console.log('New user connected: ', socket.id);
-});*/
