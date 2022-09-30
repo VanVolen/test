@@ -12,7 +12,7 @@ var players = {
 };
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/app/index.html');
+res.sendFile(__dirname + '/index.html');
 });
 
 //on connection
