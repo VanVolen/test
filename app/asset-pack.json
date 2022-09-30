@@ -1,0 +1,22 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "components/Scene.js",
+                "type": "sceneFile",
+                "key": "Scene"
+            },
+            {
+                "url": [
+                    "components/Game.js",
+                    "components/Ui.js",
+                    "components/Controls.js",
+                    "components/Server.js",
+                    "components/Player.js"
+                ],
+                "type": "scripts",
+                "key": "components"
+            }
+        ]
+    }
+}
